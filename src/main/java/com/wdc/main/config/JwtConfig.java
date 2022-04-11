@@ -1,11 +1,13 @@
 package com.wdc.main.config;
 
 
+import com.wdc.main.filter.JwtAuthFilter;
 import com.wdc.main.service.CuserDetailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -14,11 +16,16 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 public class JwtConfig  extends WebSecurityConfigurerAdapter {
 
+
+
+    @Autowired
+    private JwtAuthFilter jwtFilter;
  @Autowired
 private CuserDetailService userDetailsService;
     //comment on veut manager notre authentification process
@@ -41,6 +48,9 @@ private CuserDetailService userDetailsService;
                .anyRequest().authenticated()  // any other request , authentification should be performed
                .and()
                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);  //every requestion should be independent from other  , and server does not have to manage session
+
+   http.addFilterBefore(jwtFilter , UsernamePasswordAuthenticationFilter.class);
+
     }
 
 

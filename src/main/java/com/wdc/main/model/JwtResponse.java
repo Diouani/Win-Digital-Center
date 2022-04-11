@@ -1,4 +1,4 @@
-package com.wdc.main.entity;
+package com.wdc.main.model;
 
 public class JwtResponse {
 

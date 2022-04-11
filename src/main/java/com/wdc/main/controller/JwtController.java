@@ -1,8 +1,8 @@
 package com.wdc.main.controller;
 
 
-import com.wdc.main.entity.JwtRequest;
-import com.wdc.main.entity.JwtResponse;
+import com.wdc.main.model.JwtRequest;
+import com.wdc.main.model.JwtResponse;
 import com.wdc.main.service.CuserDetailService;
 import com.wdc.main.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
